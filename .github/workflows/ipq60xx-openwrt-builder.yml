@@ -56,8 +56,8 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        [ -e $PATCH_FILE ] && mv $PATCH_FILE openwrt/0001-ipq60xx-add-support-for-JD-Cloud-AX1800-Pro.patch
-        cd openwrt && git apply 0001-ipq60xx-add-support-for-JD-Cloud-AX1800-Pro.patch
+        [ -e $PATCH_FILE ] && mv $PATCH_FILE /workdir/openwrt/0001-ipq60xx-add-support-for-JD-Cloud-AX1800-Pro.patch
+        cd /workdir/openwrt && git apply 0001-ipq60xx-add-support-for-JD-Cloud-AX1800-Pro.patch
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
 
