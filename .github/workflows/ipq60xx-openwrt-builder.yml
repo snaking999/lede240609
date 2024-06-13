@@ -21,6 +21,7 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ipq60xx.config
+  PATCH_FILE: .patch
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: true
@@ -54,8 +55,11 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone $REPO_URL -b $REPO_BRANCH ope 
+        [ -e $PATCH_FILE ] && mv $PATCH_FILE openwrt/0001-ipq60xx-add-support-for-JD-Cloud-AX1800-Pro.patch
+        git apply 0001-ipq60xx-add-support-for-JD-Cloud-AX1800-Pro.patch
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        
 
     - name: Load custom feeds
       run: |
@@ -73,7 +77,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config   
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
