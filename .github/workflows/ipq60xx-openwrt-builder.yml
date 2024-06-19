@@ -10,7 +10,7 @@
 # See /LICENSE for more information.
 #
 
-name: 3800 OpenWrt Builder
+name: ipq60xx OpenWrt Builder
 
 on:
   repository_dispatch:
